@@ -117,7 +117,20 @@ export default {
               icon: 'mdi-file-tree'
             }
           ]
+        },
+        {
+          title: '강좌',
+          to: '',
+          icon: 'mdi-account',
+          subItems: [
+            { title: '카드', to: '/lectures/card' },
+            {
+              title: '레이아웃',
+              to: '/lectures/layout'
+            }
+          ]
         }
+
       ]
     }
   }

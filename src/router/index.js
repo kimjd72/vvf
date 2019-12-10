@@ -18,6 +18,15 @@ const routes = [{
   path: '/code/list',
   component: () =>
             import('../views/code/list.vue')
+},
+{
+  path: '/lectures/card',
+  component: () =>
+            import('../views/lectures/card.vue')
+}, {
+  path: '/lectures/layout',
+  component: () =>
+            import('../views/lectures/layout.vue')
 }
 ]
 
