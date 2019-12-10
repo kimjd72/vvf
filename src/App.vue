@@ -1,42 +1,124 @@
 <template>
   <v-app>
-    <v-toolbar dark color="primary">
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title class="white--text">Title</v-toolbar-title>
+    <v-navigation-drawer
+      app
+      width="220"
+      fixed
+      :clipped="$vuetify.breakpoint.mdAndUp"
+      v-model="drawer"
+    >
+      <v-list dense>
+        <v-list-tile to="/">
+          <v-list-tile-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Home</v-list-tile-title>
+        </v-list-tile>
+
+        <v-list-group
+          v-for="(item, index) in items"
+          :key="'menu-' + index"
+          :prepend-icon="item.icon"
+          v-model="item.active"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+
+          <v-list-tile
+            v-for="(subItem, subIndex) in item.subItems"
+            :key="'menu-' + index + '-' + subIndex"
+            :to="subItem.to"
+          >
+            <v-list-tile-content>
+              <v-list-tile-title>{{subItem.title}}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-toolbar app color="blue darken-3" dark :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
+      <v-toolbar-title>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <span>GalleryHyundai CMS</span>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+        <v-icon>mdi-logout</v-icon>
       </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-apps</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-refresh</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+      <v-btn icon to="/myinfo">
+        <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-toolbar>
+
     <v-content>
-      <!-- <HelloWorld /> -->
+      <v-container fluid class="pa-3">
+        <v-card flat class="pa-3">
+          <v-layout align-end row>
+            <v-flex xs6 class="title">
+                코드관리
+            </v-flex>
+            <v-flex xs6 class="caption text-xs-right" v-if="$vuetify.breakpoint.smAndUp">
+                Home > 시스템 > 코드관리
+            </v-flex>
+          </v-layout>
+        </v-card>
+        <v-divider class="mb-3"></v-divider>
+        <router-view></router-view>
+      </v-container>
     </v-content>
+
+    <v-footer app dark height="auto">
+      <v-card class="flex" flat tile>
+        <v-card-actions
+          class="grey darken-3 justify-center caption"
+        >copyright © Since 2019 By. Gallery Hyundai. All rights reserved.</v-card-actions>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld'
-
 export default {
   name: 'App',
-  components: {
-    // HelloWorld
-  },
   data () {
     return {
-      //
+      drawer: null,
+      items: [
+        {
+          title: '시스템',
+          to: '',
+          icon: 'mdi-vhs',
+          subItems: [
+            { title: '코드관리', to: '/code/list' },
+            { title: '관리자메뉴관리', to: '/mngrmenu/list' },
+            { title: '관리자권한관리', to: '/role/list' },
+            { title: '관리자URL관리', to: '/mngrurl/list' },
+            { title: '프론트메뉴관리', to: '/menu/list' },
+            { title: '프론트URL관리', to: '/url/list' },
+            { title: '다국어문자열관리', to: '/charst/list' }
+          ]
+        },
+        {
+          title: '관리자',
+          to: '',
+          icon: 'mdi-account',
+          subItems: [
+            { title: '관리자관리', to: '/mngr/list' },
+            {
+              title: '로그인기록',
+              to: '/mngr-login/list',
+              icon: 'mdi-file-tree'
+            }
+          ]
+        }
+      ]
     }
   }
 }
