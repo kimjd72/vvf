@@ -125,10 +125,8 @@ export default {
           icon: 'mdi-account',
           subItems: [
             { title: '카드', to: '/lectures/card' },
-            {
-              title: '레이아웃',
-              to: '/lectures/layout'
-            }
+            { title: '레이아웃', to: '/lectures/layout' },
+            { title: '노트', to: '/lectures/notes' }
           ]
         }
 

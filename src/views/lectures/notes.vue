@@ -8,7 +8,7 @@
         <v-text-field v-model="content" label="content"></v-text-field>
       </v-flex>
       <v-flex xs2>
-        <v-btn color="success" @click="post">저장</v-btn>
+        <v-btn color="success" @click="post(id)">{{ id ? '수정' : '등록' }}</v-btn>
       </v-flex>
     </v-layout>
     <v-data-iterator
@@ -20,13 +20,17 @@
       wrap
     >
       <template v-slot:item="props">
-        <v-flex xs12 sm6 md4 lg3>
-          <v-card>
+        <v-flex xs12 sm6 md4>
+          <v-card @click="onNote(props.item)">
             <v-card-title>
-              <h4>{{ props.item.title }}</h4>
+              <h4>{{ props.item.title }} ({{ props.item.id }})</h4>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>{{ props.item.content }}</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" flat @click="del(props.item.id)">삭제</v-btn>
+            </v-card-actions>
           </v-card>
         </v-flex>
       </template>
@@ -41,21 +45,46 @@ export default {
       rowsPerPage: 4
     },
     items: [],
+    id: '',
     title: '',
     content: ''
   }),
   mounted () {
-    console.log('mounted')
-  },
-  created () {
-    console.log('created')
+    this.get()
   },
   methods: {
-    post () {
+    onNote (item) {
+      this.title = item.title
+      this.content = item.content
+      this.id = item.id
+    },
+    async post (id) {
       const { title, content } = this
-      this.items.push({ title, content })
+      if (id) {
+        await this.$firebase.firestore().collection('notes').doc(id).set({ title, content })
+        this.get()
+      } else {
+        await this.$firebase.firestore().collection('notes').add({
+          title, content
+        })
+      }
+      this.id = ''
       this.title = ''
       this.content = ''
+      this.get()
+    },
+    async get () {
+      const snapshot = await this.$firebase
+        .firestore().collection('notes').get()
+      this.items = []
+      snapshot.forEach(v => {
+        const { title, content } = v.data()
+        this.items.push({ title, content, id: v.id })
+      })
+    },
+    async del (id) {
+      await this.$firebase.firestore().collection('notes').doc(id).delete()
+      this.get()
     }
   }
 }

@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from 'firebase/app'
 
@@ -13,6 +15,9 @@ import firebaseConfig from '../../firebaseConfig'
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-firebase.firestore().collection('test').add({ test: 'aaa' })
-  .then(r => console.log(r))
-  .catch(e => console.error(e))
+// test firebase
+// firebase.firestore().collection('test').add({ test: 'aaa' })
+//   .then(r => console.log(r))
+//   .catch(e => console.error(e))
+
+Vue.prototype.$firebase = firebase
