@@ -15,13 +15,6 @@
             ></v-text-field>
           </v-card-title>
         </v-flex>
-        <v-layout justify-end class="pr-3">
-          <v-flex xs2>
-            <v-card-actions class="text-justify-end">
-              <v-select dense solo label="Standard" :items="null"></v-select>
-            </v-card-actions>
-          </v-flex>
-        </v-layout>
         <v-card-text>
           <v-data-table
             :headers="headers"
