@@ -90,6 +90,7 @@ export default {
   data () {
     return {
       drawer: null,
+      selectedMenu: null,
       items: [
         {
           title: '시스템',

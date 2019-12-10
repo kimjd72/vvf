@@ -23,11 +23,18 @@ const routes = [{
   path: '/lectures/card',
   component: () =>
             import('../views/lectures/card.vue')
-}, {
+},
+{
   path: '/lectures/layout',
   component: () =>
             import('../views/lectures/layout.vue')
+},
+{
+  path: '/lectures/notes',
+  component: () =>
+            import('../views/lectures/notes.vue')
 }
+
 ]
 
 const router = new VueRouter({
