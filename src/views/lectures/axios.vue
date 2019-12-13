@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md>
     <v-layout row wrap>
       <v-flex xs12>
-        <v-toolbar color="primary">axios eg</v-toolbar>
+        <v-toolbar flat transparent>axios eg</v-toolbar>
       </v-flex>
       <v-flex xs3>
         <v-card>
@@ -62,33 +62,21 @@ export default {
     }
   },
   methods: {
-    create () {
-      this.$axios.post('http://localhost:5000/vvvf-f26a8/us-central1/test')
-        .then(r => {
-          this.textCreate = r.data
-        })
-        .catch(e => console.error(e.message))
+    async create () {
+      const r = await this.$axios.post('http://localhost:5000/vvvf-f26a8/us-central1/test/123')
+      this.textCreate = r.data
     },
-    read () {
-      this.$axios.get('http://localhost:5000/vvvf-f26a8/us-central1/test')
-        .then(r => {
-          this.textRead = r.data
-        })
-        .catch(e => console.error(e.message))
+    async read () {
+      const r = await this.$axios.get('http://localhost:5000/vvvf-f26a8/us-central1/test')
+      this.textRead = r.data
     },
-    update () {
-      this.$axios.put('http://localhost:5000/vvvf-f26a8/us-central1/test/putparam')
-        .then(r => {
-          this.textUpdate = r.data
-        })
-        .catch(e => console.error(e.message))
+    async update () {
+      const r = await this.$axios.put('http://localhost:5000/vvvf-f26a8/us-central1/test/putparam')
+      this.textUpdate = r.data
     },
-    del () {
-      this.$axios.delete('http://localhost:5000/vvvf-f26a8/us-central1/test/deleteparam')
-        .then(r => {
-          this.textDelete = r.data
-        })
-        .catch(e => console.error(e.message))
+    async del () {
+      const r = await this.$axios.delete('http://localhost:5000/vvvf-f26a8/us-central1/test/deleteparam')
+      this.textDelete = r.data
     }
   }
 }
