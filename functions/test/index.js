@@ -4,9 +4,9 @@ require('express-async-errors')
 
 app.use(cors())
 
+app.use(require('../middlewares/verifyToken'))
+
 app.post('/', async (req, res) => {
-  const a = 1
-  if (a === 1) { throw Error('access denied11') }
   res.send('post ok')
 })
 
@@ -26,8 +26,6 @@ app.delete('/:id', (req, res) => {
   res.send('delete ok ' + req.params.id)
 })
 
-app.use((err, req, res, next) => {
-  res.status(401).send(err.message)
-})
+app.use(require('../middlewares/error'))
 
 module.exports = app

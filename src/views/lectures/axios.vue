@@ -63,19 +63,19 @@ export default {
   },
   methods: {
     async create () {
-      const r = await this.$axios.post('http://localhost:5000/vvvf-f26a8/us-central1/test')
+      const r = await this.$firebaseApi.post('test')
       this.textCreate = r.data
     },
     async read () {
-      const r = await this.$axios.get('http://localhost:5000/vvvf-f26a8/us-central1/test')
+      const r = await this.$firebaseApi.get('test')
       this.textRead = r.data
     },
     async update () {
-      const r = await this.$axios.put('http://localhost:5000/vvvf-f26a8/us-central1/test/putparam')
+      const r = await this.$firebaseApi.put('test/putparam')
       this.textUpdate = r.data
     },
     async del () {
-      const r = await this.$axios.delete('http://localhost:5000/vvvf-f26a8/us-central1/test/deleteparam')
+      const r = await this.$firebaseApi.delete('test/deleteparam')
       this.textDelete = r.data
     }
   }
