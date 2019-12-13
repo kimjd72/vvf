@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     async create () {
-      const r = await this.$axios.post('http://localhost:5000/vvvf-f26a8/us-central1/test/123')
+      const r = await this.$axios.post('http://localhost:5000/vvvf-f26a8/us-central1/test')
       this.textCreate = r.data
     },
     async read () {
