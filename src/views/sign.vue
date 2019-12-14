@@ -8,10 +8,13 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="primary" @click="signInEmail">
-        <v-icon>mdi-login</v-icon>로그인
+        <v-icon>mdi-login</v-icon>메일로그인
       </v-btn>
       <v-btn color="primary" @click="signInGoogle">
         <v-icon>mdi-google</v-icon>구글로그인
+      </v-btn>
+      <v-btn color="primary" @click="signOut">
+        <v-icon>mdi-logout</v-icon>로그아웃
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -28,16 +31,16 @@ export default {
     async signInGoogle () {
       var provider = new this.$firebase.auth.GoogleAuthProvider()
       this.$firebase.auth().languageCode = 'ko'
-      const r = await this.$firebase.auth().signInWithPopup(provider)
-      const token = r.credential.accessToken
-      const user = r.user
-      console.log(token, user)
+      await this.$firebase.auth().signInWithPopup(provider)
     },
     async signInEmail () {
       const { email, password } = this
-      const r = await this.$firebase.auth().signInWithEmailAndPassword(email, password)
-      console.log(r)
+      await this.$firebase.auth().signInWithEmailAndPassword(email, password)
+    },
+    async signOut () {
+      await this.$firebase.auth().signOut()
     }
+
   }
 }
 </script>

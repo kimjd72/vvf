@@ -9,6 +9,9 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+let global = 'abc'
+Vue.prototype.$global = global
+
 new Vue({
   router,
   store,
