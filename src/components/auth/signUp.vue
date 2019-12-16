@@ -1,3 +1,3 @@
 <template>
-  <v-card>signUp.vue</v-card>
+  <v-card>회원가입</v-card>
 </template>

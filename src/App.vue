@@ -1,5 +1,5 @@
 <template>
-  <v-app v-if="emptyLayout">
+  <v-app v-if="layout === 'basic'">
     <v-navigation-drawer
       app
       width="220"
@@ -83,7 +83,7 @@
       </v-card>
     </v-footer>
   </v-app>
-  <v-app v-else>
+  <v-app v-else-if="layout === 'empty'">
     <router-view></router-view>
   </v-app>
 </template>
@@ -95,7 +95,7 @@ export default {
     return {
       drawer: null,
       selectedMenu: null,
-      emptyLayout: false,
+      layout: 'empty',
       items: [
         {
           title: '시스템',
