@@ -20,12 +20,12 @@
   </v-card>-->
   <v-container grid-list-md>
     <v-layout row wrap align-center justify-center fluid>
-      <v-flex sm5 class="hidden-sm-and-down">
+      <v-flex sm6 class="hidden-sm-and-down">
         <v-img
           src="https://cfl.dropboxstatic.com/static/images/empty_states/sign-in-boulder-vfl2oGV4v.png"
         ></v-img>
       </v-flex>
-      <v-flex xs12 sm12>
+      <v-flex xs12 sm6>
         <sign-in v-if="type === 'login'"></sign-in>
         <sign-up v-else></sign-up>
       </v-flex>

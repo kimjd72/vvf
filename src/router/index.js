@@ -15,7 +15,7 @@ const routes = [{
   name: 'sign',
   component: () =>
             import('../views/sign.vue'),
-  meta: { permitAll: true }
+  meta: { permitAll: true, layoutType: 'empty' }
 },
 {
   path: '/myinfo',
@@ -90,6 +90,16 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+router.beforeEach((to, from, next) => {
+  console.log('router.beforeEach 2')
+  if (to.meta && to.meta.layoutType) {
+    store.commit('setLayoutType', to.meta.layoutType)
+  } else {
+    store.commit('setLayoutType', 'basic')
+  }
+  next()
 })
 
 router.afterEach((to, from) => {

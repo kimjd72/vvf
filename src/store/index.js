@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     setToken (state, token) {
       state.token = token
+    },
+    setLayoutType (state, layoutType) {
+      state.layoutType = layoutType
     }
   },
   actions: {

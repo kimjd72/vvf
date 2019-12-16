@@ -44,7 +44,6 @@
     </v-navigation-drawer>
 
     <v-toolbar
-      v-if="$store.state.user"
       app
       color="blue darken-3"
       dark
@@ -53,7 +52,7 @@
     >
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span>{{ $store.state.user ? $store.state.user.displayName : '로그인 안함' }}</span>
+        <span>{{ $store.state.user.displayName }}</span>
         <!-- <span>{{ $store.state.token }}</span> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -64,18 +63,9 @@
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-toolbar v-else app color="blue darken-3" dark fixed>
-      <v-toolbar-title>
-        <span>{{ $store.state.title }}</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="signOut">
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
-    </v-toolbar>
 
     <v-content>
-      <v-toolbar v-if="$store.state.user" color="transparent" flat>
+      <v-toolbar color="transparent" flat>
         <v-toolbar-title>
           <span>코드관리</span>
         </v-toolbar-title>
