@@ -46,7 +46,8 @@
     <v-toolbar app color="blue darken-3" dark :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span>GalleryHyundai CMS</span>
+        <span>{{ $store.state.user ? $store.state.user.displayName : '로그인 안함' }}</span>
+        <span>{{ $store.state.token }}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -130,7 +131,10 @@ export default {
           subItems: [
             { title: '카드', to: '/lectures/card' },
             { title: '레이아웃', to: '/lectures/layout' },
-            { title: '노트', to: '/lectures/notes' }
+            { title: '노트', to: '/lectures/notes' },
+            { title: '액시오스', to: '/lectures/axios' },
+            { title: '컴포넌트', to: '/lectures/mother' },
+            { title: '뷰액스', to: '/lectures/vuex' }
           ]
         }
 
