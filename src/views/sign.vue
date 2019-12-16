@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <!-- <v-card>
     <v-card-title>로그인</v-card-title>
     <v-card-text>
       <v-text-field label="email" v-model="email"></v-text-field>
@@ -14,7 +14,18 @@
         <v-icon>mdi-google</v-icon>구글로그인
       </v-btn>
     </v-card-actions>
-  </v-card>
+  </v-card> -->
+  <v-container grid-list-md>
+    <v-layout row wrap align-center justify-center>
+      <v-flex xs12 sm5 class="hidden-xs-only">
+        <v-img src="https://cfl.dropboxstatic.com/static/images/empty_states/sign-in-boulder-vfl2oGV4v.png"></v-img>
+      </v-flex>
+      <v-flex xs12 sm5>
+
+      </v-flex>
+    </v-layout>
+
+  </v-container>
 </template>
 <script>
 export default {
