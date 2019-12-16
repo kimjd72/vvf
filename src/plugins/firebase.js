@@ -11,7 +11,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 import firebaseConfig from '../../firebaseConfig'
-import store from '../store'
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
@@ -22,13 +21,3 @@ firebase.initializeApp(firebaseConfig)
 //   .catch(e => console.error(e))
 
 Vue.prototype.$firebase = firebase
-
-firebase.auth().onAuthStateChanged((user) => {
-  console.log(user)
-  if (user) {
-    // store.commit('setUser', user)
-    store.dispatch('getUser', user)
-  } else {
-    // No user is signed in.
-  }
-})

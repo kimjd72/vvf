@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,8 @@ const routes = [{
   path: '/sign',
   name: 'sign',
   component: () =>
-            import('../views/sign.vue')
+            import('../views/sign.vue'),
+  meta: { permitAll: true }
 },
 {
   path: '/myinfo',
@@ -61,6 +63,37 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  console.log('router.beforeEach')
+  const permitAll = to.matched.some(record => record.meta.permitAll)
+  console.log(to)
+  if (!permitAll) {
+    Vue.prototype.$firebase.auth().onAuthStateChanged(async (user) => {
+      console.log('firebase.auth().onAuthStateChanged')
+      store.commit('setUser', user)
+      if (user) {
+        const token = await user.getIdToken()
+        console.log('token', token)
+        store.commit('setToken', token)
+      } else {
+        store.commit('setToken', '')
+      }
+
+      if (user) {
+        next()
+      } else {
+        next('/sign')
+      }
+    })
+  } else {
+    next()
+  }
+})
+
+router.afterEach((to, from) => {
+  console.log(router.afterEach)
 })
 
 export default router

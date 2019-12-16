@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     title: 'GalleryHyundai CMS',
     user: null,
-    token: ''
+    token: '',
+    layoutType: 'empty'
   },
   mutations: {
     setTitle (state, title) {
@@ -31,6 +32,5 @@ export default new Vuex.Store({
       })
     }
   },
-  modules: {
-  }
+  modules: {}
 })

@@ -1,5 +1,5 @@
 <template>
-  <v-app v-if="layout === 'basic'">
+  <v-app v-if="$store.state.layoutType === 'basic'">
     <v-navigation-drawer
       app
       width="220"
@@ -43,36 +43,46 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar app color="blue darken-3" dark :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
+    <v-toolbar
+      v-if="$store.state.user"
+      app
+      color="blue darken-3"
+      dark
+      :clipped-left="$vuetify.breakpoint.mdAndUp"
+      fixed
+    >
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span>{{ $store.state.user ? $store.state.user.displayName : '로그인 안함' }}</span>
-        <span>{{ $store.state.token }}</span>
+        <!-- <span>{{ $store.state.token }}</span> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="signOut">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
       <v-btn icon to="/myinfo">
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-toolbar>
+    <v-toolbar v-else app color="blue darken-3" dark fixed>
+      <v-toolbar-title>
+        <span>{{ $store.state.title }}</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="signOut">
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+    </v-toolbar>
 
     <v-content>
-      <v-container fluid class="pa-3">
-        <v-card flat class="pa-3">
-          <v-layout align-end row>
-            <v-flex xs6 class="title">
-                코드관리
-            </v-flex>
-            <v-flex xs6 class="caption text-xs-right" v-if="$vuetify.breakpoint.smAndUp">
-                Home > 시스템 > 코드관리
-            </v-flex>
-          </v-layout>
-        </v-card>
-        <v-divider class="mb-3"></v-divider>
-        <router-view></router-view>
-      </v-container>
+      <v-toolbar v-if="$store.state.user" color="transparent" flat>
+        <v-toolbar-title>
+          <span>코드관리</span>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <span class="caption">Home > 시스템 > 코드관리</span>
+      </v-toolbar>
+      <router-view></router-view>
     </v-content>
 
     <v-footer app dark height="auto">
@@ -83,8 +93,10 @@
       </v-card>
     </v-footer>
   </v-app>
-  <v-app v-else-if="layout === 'empty'">
-    <router-view></router-view>
+  <v-app v-else-if="$store.state.layoutType === 'empty'">
+    <v-content>
+      <router-view></router-view>
+    </v-content>
   </v-app>
 </template>
 
@@ -95,7 +107,6 @@ export default {
     return {
       drawer: null,
       selectedMenu: null,
-      layout: 'empty',
       items: [
         {
           title: '시스템',
@@ -137,8 +148,12 @@ export default {
             { title: '뷰액스', to: '/lectures/vuex' }
           ]
         }
-
       ]
+    }
+  },
+  methods: {
+    async signOut () {
+      await this.$firebase.auth().signOut()
     }
   }
 }

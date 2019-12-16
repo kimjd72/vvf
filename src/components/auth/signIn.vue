@@ -1,17 +1,17 @@
 <template>
-  <v-card flat color="transparent">
+  <v-card flat color="transparent" fluid>
     <v-card-title primary-title>
       <span class="title">로그인</span>
       <v-spacer></v-spacer>
       <span class="caption">
         또는
-        <a href="javascript:;" class="body-1">회원가입</a>
+        <a href="javascript:;" class="body-1" @click="signOut">회원가입</a>
       </span>
     </v-card-title>
     <v-card-title primary-title>
-      <v-btn color="primary" block>
+      <v-btn color="primary" block class="pl-2" @click="signInGoogle">
         <v-icon>mdi-google</v-icon>
-        <v-divider vertical class="mx-2"></v-divider>
+        <v-divider vertical class="mx-1"></v-divider>
         <v-spacer></v-spacer>
         <span>Google 계정으로 로그인</span>
         <v-spacer></v-spacer>
@@ -22,15 +22,15 @@
         <v-flex xs5>
           <v-divider class="mt-2"></v-divider>
         </v-flex>
-        <v-flex xs2>
-          <span style="background: red;">또는</span>
+        <v-flex xs2 style="text-align: center;">
+          또는
         </v-flex>
         <v-flex xs5>
           <v-divider class="mt-2"></v-divider>
         </v-flex>
       </v-layout>
     </v-container>
-    <v-form>
+    <v-form v-model="valid" ref="form" lazy-validation>
       <v-card-text>
           <v-text-field
               label="이메일"
@@ -47,3 +47,32 @@
     </v-card-actions>
   </v-card>
 </template>
+<script>
+export default {
+  data () {
+    return {
+      valid: false
+    }
+  },
+  methods: {
+    async signInGoogle () {
+      var provider = new this.$firebase.auth.GoogleAuthProvider()
+      this.$firebase.auth().languageCode = 'ko'
+      const r = await this.$firebase.auth().signInWithPopup(provider)
+      if (r && r.user) {
+        console.log('login success and move home')
+        this.$router.push('/')
+      }
+    },
+    async signInEmail () {
+      const { email, password } = this
+      await this.$firebase.auth().signInWithEmailAndPassword(email, password)
+    },
+    async signOut () {
+      await this.$firebase.auth().signOut()
+    }
+
+  }
+
+}
+</script>
