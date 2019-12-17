@@ -1,5 +1,6 @@
 <template>
   <v-app v-if="$store.state.layoutType === 'basic'">
+    <!-- left menu and navigation drawer -->
     <v-navigation-drawer
       app
       width="220"
@@ -43,11 +44,11 @@
       </v-list>
     </v-navigation-drawer>
 
+    <!-- top toolbar -->
     <v-toolbar app color="blue darken-3" dark :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span>{{ $store.state.title }}</span>
-        <!-- <span>{{ $store.state.token }}</span> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="signOut">
@@ -58,6 +59,7 @@
       </v-btn>
     </v-toolbar>
 
+    <!-- contents -->
     <v-content>
       <v-toolbar color="transparent" flat>
         <v-toolbar-title>
@@ -67,16 +69,25 @@
         <span class="caption">Home > 시스템 > 코드관리</span>
       </v-toolbar>
       <router-view></router-view>
-      <vue-progress-bar></vue-progress-bar>
     </v-content>
 
+    <!-- footer -->
     <v-footer app dark height="auto">
       <v-card class="flex" flat tile>
         <v-card-actions
           class="grey darken-3 justify-center caption"
-        >copyright © Since 2019 By. Gallery Hyundai. All rights reserved.</v-card-actions>
+        >copyright © Since 2019 By. ~~~. All rights reserved.</v-card-actions>
       </v-card>
     </v-footer>
+
+    <!-- loading bar -->
+    <v-dialog v-model="$store.state.loading" fullscreen full-width>
+      <v-container fluid fill-height style="background-color: rgba(128, 128, 128, 0.7);">
+        <v-layout justify-center align-center>
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </v-layout>
+      </v-container>
+    </v-dialog>
   </v-app>
   <v-app v-else-if="$store.state.layoutType === 'empty'">
     <v-content>
@@ -91,7 +102,6 @@ export default {
   data () {
     return {
       drawer: null,
-      selectedMenu: null,
       items: [
         {
           title: '시스템',

@@ -8,7 +8,8 @@ export default new Vuex.Store({
     title: 'Eluocnc CMS',
     user: null,
     token: '',
-    layoutType: 'empty'
+    layoutType: 'empty',
+    loading: true
   },
   mutations: {
     setTitle (state, title) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     setLayoutType (state, layoutType) {
       state.layoutType = layoutType
+    },
+    setLoading (state, loading) {
+      state.loading = loading
     }
   },
   actions: {

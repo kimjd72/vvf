@@ -9,13 +9,13 @@ const routes = [{
   path: '/',
   name: 'home',
   component: Home,
-  meta: { permitAll: false, layoutType: 'basic', progressbar: true }
+  meta: { permitAll: false, layoutType: 'basic', loading: true }
 },
 {
   path: '/sign',
   name: 'sign',
   component: () => import('../views/sign.vue'),
-  meta: { permitAll: true, layoutType: 'empty', progressbar: true }
+  meta: { permitAll: true, layoutType: 'empty', loading: true }
 },
 {
   path: '/myinfo',
@@ -70,12 +70,11 @@ const router = new VueRouter({
   routes
 })
 
-// progress bar
+// loading bar
 router.beforeEach((to, from, next) => {
-  console.log('progress bar')
-  if (to.meta && to.meta.progressbar) {
-    Vue.prototype.$Progress.start()
-    console.log('progress bar started')
+  console.log('loading bar')
+  if (to.meta && to.meta.loading) {
+    store.commit('setLoading', true)
   }
   next()
 })
@@ -125,6 +124,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
   Vue.prototype.$Progress.finish()
   console.log('progressbar finished')
+  store.commit('setLoading', false)
 })
 
 export default router
