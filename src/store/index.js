@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    title: 'GalleryHyundai CMS',
+    title: 'Eluocnc CMS',
     user: null,
     token: '',
     layoutType: 'empty'

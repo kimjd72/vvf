@@ -8,14 +8,14 @@ Vue.use(VueRouter)
 const routes = [{
   path: '/',
   name: 'home',
-  component: Home
+  component: Home,
+  meta: { permitAll: false, layoutType: 'basic', progressbar: true }
 },
 {
   path: '/sign',
   name: 'sign',
-  component: () =>
-            import('../views/sign.vue'),
-  meta: { permitAll: true, layoutType: 'empty' }
+  component: () => import('../views/sign.vue'),
+  meta: { permitAll: true, layoutType: 'empty', progressbar: true }
 },
 {
   path: '/myinfo',
@@ -55,7 +55,12 @@ const routes = [{
 {
   path: '/lectures/vuex',
   component: () =>
-            import('../views/lectures/vuex')
+            import('../views/lectures/vuex.vue')
+},
+{
+  path: '/lectures/progressbar',
+  component: () =>
+            import('../views/lectures/progressbar.vue')
 }
 ]
 
@@ -65,10 +70,24 @@ const router = new VueRouter({
   routes
 })
 
+// progress bar
 router.beforeEach((to, from, next) => {
-  console.log('router.beforeEach')
-  const permitAll = to.matched.some(record => record.meta.permitAll)
-  console.log(to)
+  console.log('progress bar')
+  if (to.meta && to.meta.progressbar) {
+    Vue.prototype.$Progress.start()
+    console.log('progress bar started')
+  }
+  next()
+})
+
+// check authentication
+router.beforeEach((to, from, next) => {
+  console.log('check authentication')
+  let permitAll = false
+  if (to.meta && to.meta.permitAll) {
+    permitAll = to.meta.permitAll
+  }
+  console.log(permitAll)
   if (!permitAll) {
     Vue.prototype.$firebase.auth().onAuthStateChanged(async (user) => {
       console.log('firebase.auth().onAuthStateChanged')
@@ -92,8 +111,9 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+// set layout
 router.beforeEach((to, from, next) => {
-  console.log('router.beforeEach 2')
+  console.log('set layout')
   if (to.meta && to.meta.layoutType) {
     store.commit('setLayoutType', to.meta.layoutType)
   } else {
@@ -103,7 +123,8 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  console.log(router.afterEach)
+  Vue.prototype.$Progress.finish()
+  console.log('progressbar finished')
 })
 
 export default router

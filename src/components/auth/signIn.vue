@@ -34,16 +34,21 @@
       <v-card-text>
           <v-text-field
               label="이메일"
-          ></v-text-field>
+              v-model="email"
+          >
+          </v-text-field>
           <v-text-field
               label="비밀번호"
-          ></v-text-field>
+              type="password"
+              v-model="password"
+          >
+          </v-text-field>
       </v-card-text>
     </v-form>
     <v-card-actions>
         <v-checkbox label="로그인 정보저장"></v-checkbox>
         <v-spacer></v-spacer>
-        <v-btn color="primary">로그인</v-btn>
+        <v-btn color="primary" @click="signInEmail">이메일 로그인</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -51,7 +56,9 @@
 export default {
   data () {
     return {
-      valid: false
+      valid: false,
+      email: '',
+      password: ''
     }
   },
   methods: {

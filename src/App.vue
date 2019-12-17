@@ -43,16 +43,10 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar
-      app
-      color="blue darken-3"
-      dark
-      :clipped-left="$vuetify.breakpoint.mdAndUp"
-      fixed
-    >
+    <v-toolbar app color="blue darken-3" dark :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span>{{ $store.state.user.displayName }}</span>
+        <span>{{ $store.state.title }}</span>
         <!-- <span>{{ $store.state.token }}</span> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -73,6 +67,7 @@
         <span class="caption">Home > 시스템 > 코드관리</span>
       </v-toolbar>
       <router-view></router-view>
+      <vue-progress-bar></vue-progress-bar>
     </v-content>
 
     <v-footer app dark height="auto">
@@ -135,7 +130,8 @@ export default {
             { title: '노트', to: '/lectures/notes' },
             { title: '액시오스', to: '/lectures/axios' },
             { title: '컴포넌트', to: '/lectures/mother' },
-            { title: '뷰액스', to: '/lectures/vuex' }
+            { title: '뷰액스', to: '/lectures/vuex' },
+            { title: 'vue-progressbar', to: '/lectures/progressbar' }
           ]
         }
       ]
