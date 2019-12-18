@@ -55,6 +55,7 @@ export default new Vuex.Store({
         menu.subItems.some((sub, index) => {
           if (sub.to === path) {
             sub.active = true
+            menu.active = true
             selectedMenu = sub
             return true
           }
