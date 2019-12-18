@@ -30,6 +30,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### vscode settings.json for eslint
+```
 {
     "files.autoSave": "onFocusChange",
     "eslint.alwaysShowStatus": true,
@@ -49,14 +50,18 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
     "window.zoomLevel": 0,
     "[vue]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "octref.vetur"
     }
 }
+```
 
-## vs extension conflict with eslint
+## vscode extension conflict with eslint
+```
 - JS-CSS-HTML Formatter
+```
 
 ### add firebaseConifg.js on root directory
+```
 export default {
   apiKey: 'xxxxxx~',
   authDomain: 'vvvf-xxx.firebaseapp.com',
@@ -67,3 +72,4 @@ export default {
   appId: 'xxxxxx',
   measurementId: 'xxxx'
 }
+```
