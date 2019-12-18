@@ -2,7 +2,6 @@
   <v-card>
     <v-card-actions>
       <v-btn flat color="primary" @click="start">프로그레스바 시작</v-btn>
-      <v-btn flat color="primary" @click="end">프로그레스바 종료</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -15,11 +14,10 @@ export default {
   methods: {
     start () {
       console.log('start')
-      this.$Progress.start()
-    },
-    end () {
-      console.log('end')
-      this.$Progress.finish()
+      this.$store.commit('setLoading', true)
+      setTimeout(() => {
+        this.$store.commit('setLoading', false)
+      }, 2000)
     }
   }
 }

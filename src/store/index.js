@@ -5,11 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    title: 'Eluocnc CMS',
+    title: 'GalleryHyundai CMS',
     user: null,
     token: '',
     layoutType: 'empty',
-    loading: true
+    loading: false,
+    menuList: [],
+    selectedMenu: null
   },
   mutations: {
     setTitle (state, title) {
@@ -26,6 +28,43 @@ export default new Vuex.Store({
     },
     setLoading (state, loading) {
       state.loading = loading
+    },
+    setMenuList (state, menuList) {
+      state.menuList = menuList
+    },
+    logout (state, payload) {
+      state.title = 'GalleryHyundai CMS'
+      state.user = null
+      state.token = ''
+      state.layoutType = 'empty'
+      state.loading = false
+      state.menuList = []
+      state.selectedMenu = null
+    },
+    setActiveMenu (state, path) {
+      // check 1st depth
+      let selectedMenu = null
+      state.menuList.some((menu) => {
+        if (menu.to === path) {
+          menu.active = true
+          selectedMenu = menu
+          return true
+        }
+
+        // check 2nd depth
+        menu.subItems.some((sub, index) => {
+          if (sub.to === path) {
+            sub.active = true
+            selectedMenu = sub
+            return true
+          }
+        })
+
+        if (selectedMenu) {
+          return true
+        }
+      })
+      state.selectedMenu = selectedMenu
     }
   },
   actions: {
