@@ -14,7 +14,6 @@ const router = new VueRouter({
 
 // loading bar
 router.beforeEach((to, from, next) => {
-  console.log('loading bar')
   if (to.meta && to.meta.loading) {
     store.commit('setLoading', true)
   }
@@ -23,20 +22,16 @@ router.beforeEach((to, from, next) => {
 
 // check authentication
 router.beforeEach((to, from, next) => {
-  console.log('check authentication')
   let permitAll = false
   if (to.meta && to.meta.permitAll) {
     permitAll = to.meta.permitAll
   }
-  console.log(permitAll)
   if (permitAll) {
     next()
     return
   }
 
   Vue.prototype.$firebase.auth().onAuthStateChanged(async (user) => {
-    console.log('firebase.auth().onAuthStateChanged')
-
     if (!user) {
       store.commit('logout', '')
       next('/sign')
@@ -63,7 +58,6 @@ router.beforeEach((to, from, next) => {
 
 // set layout
 router.beforeEach((to, from, next) => {
-  console.log('set layout')
   if (to.meta && to.meta.layoutType) {
     store.commit('setLayoutType', to.meta.layoutType)
   } else {

@@ -1,4 +1,5 @@
 <template>
+  <!-- basic layout -->
   <v-app v-if="$store.state.layoutType === 'basic'">
     <!-- top toolbar, left menu and navigation drawer -->
     <app-header></app-header>
@@ -21,6 +22,8 @@
     <!-- loading bar -->
     <loading></loading>
   </v-app>
+
+  <!-- empty layout -->
   <v-app v-else-if="$store.state.layoutType === 'empty'">
     <v-content>
       <router-view></router-view>
