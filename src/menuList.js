@@ -16,7 +16,7 @@ export default [
   {
     title: '관리자',
     to: '',
-    icon: 'mdi-account',
+    icon: 'mdi-account-alert',
     subItems: [
       { title: '관리자관리', to: '/mngr/list', titlePath: 'Home > 관리자 > 관리자관리' },
       { title: '로그인기록', to: '/mngr-login/list', titlePath: 'Home > 관리자 > 로그인기록' }
@@ -25,7 +25,7 @@ export default [
   {
     title: '강좌',
     to: '',
-    icon: 'mdi-account',
+    icon: 'mdi-teach',
     subItems: [
       { title: '카드', to: '/lectures/card', titlePath: 'Home > 강좌 > 카드' },
       { title: '레이아웃', to: '/lectures/layout', titlePath: 'Home > 강좌 > 레이아웃' },
